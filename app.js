@@ -1,3 +1,4 @@
+
 var files;
 var songsAmount=0;
 var imagesAmount=0;
@@ -13,8 +14,6 @@ var shuffleButton = document.getElementById("shuffle");
 var imagesContainter = document.getElementById("imagesContainer");
 var console = document.getElementById("console");
 
-consoleLog("Screen width: "+ screen.width +", Screen Heigth: "+ screen.height);
-
 var req = new XMLHttpRequest();
 var filesJson;
 req.open("GET",/*"https://s3-sa-east-1.amazonaws.com/wixtestbucket/*/"files.json");
@@ -26,6 +25,10 @@ req.addEventListener("load",function () {
 });
 req.send();
 
+consoleLog("Screen width: "+ screen.width +", Screen Heigth: "+ screen.height);
+consoleLog("Player. Can play audio/mpeg: " + player.canPlayType("audio/mpeg"));
+consoleLog("Player.muted: " + player.muted);
+consoleLog("Player.autoplay: " + player.autoplay);
 
 var jssor_1_slider_init = function() {
 
