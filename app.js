@@ -125,8 +125,7 @@ function nextSong(){
 
 function loadTrack(i) { //load only no play
     var src = "https://s3-sa-east-1.amazonaws.com/wixtestbucket/music/" + i + ".mp3";
-    consoleLog(src)
-    source.src = "src";
+    source.src = src;
     setCurrent(i)
     player.load();
 }
