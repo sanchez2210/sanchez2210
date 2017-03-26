@@ -11,6 +11,9 @@ var nextButton = document.getElementById("next");
 var prevButton = document.getElementById("prev");
 var shuffleButton = document.getElementById("shuffle");
 var imagesContainter = document.getElementById("imagesContainer");
+var console = document.getElementById("console");
+
+consoleLog("Screen width: "+ screen.width +", Screen Heigth: "+ screen.height);
 
 var req = new XMLHttpRequest();
 var filesJson;
@@ -121,7 +124,9 @@ function nextSong(){
 }
 
 function loadTrack(i) { //load only no play
-    source.src = "https://s3-sa-east-1.amazonaws.com/wixtestbucket/music/" + i + ".mp3";
+    var src = "https://s3-sa-east-1.amazonaws.com/wixtestbucket/music/" + i + ".mp3";
+    consoleLog(src)
+    source.src = "src";
     setCurrent(i)
     player.load();
 }
@@ -149,4 +154,8 @@ function getRNG(){
     }
     console.log(num);
     return num;
+}
+
+function consoleLog(input){
+    console.innerHTML += input + "<br>";
 }
