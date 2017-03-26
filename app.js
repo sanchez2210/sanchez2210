@@ -70,25 +70,25 @@ var jssor_1_slider_init = function() {
 function init() { //This code starts everything as soon as files.json is read
     trackNumber = 0;
     songs.innerHTML = "";
-    for (let i = 0; i< songsAmount ; i++) {
+    for (var i = 0; i< songsAmount ; i++) {
 
-        let li = document.createElement("li");
+        var li = document.createElement("li");
         li.setAttribute("class", "song");
         li.innerHTML= i + ".mp3";
         li.id = i;
 
-        li.addEventListener("click", function(){
+        li.addEventListener("click", (function(i){
             trackNumber=i;
             playTrack(i);
-        },false);
+        }).bind(null,i),false);
 
         songs.appendChild(li);
     }
 
-    for(let j = 0; j < imagesAmount ; j++){
+    for(var j = 0; j < imagesAmount ; j++){
 
-        let div = document.createElement("div");
-        let img = document.createElement("img");
+        var div = document.createElement("div");
+        var img = document.createElement("img");
         img.setAttribute("data-u","image");
         img.src = "img/" + j + ".jpg";
         div.appendChild(img);
@@ -132,7 +132,7 @@ function playTrack(i){ //load and play
 }
 
 function setCurrent(i){ //Sets a class selector of song-current for styling;
-    let current = document.querySelector(".song-current");
+    var current = document.querySelector(".song-current");
     if(current)
         current.classList.remove("song-current");
     document.getElementById(i).classList.add("song-current");
@@ -143,7 +143,7 @@ function toggleShuffle(){
 }
 
 function getRNG(){
-    let num = trackNumber;
+    var num = trackNumber;
     while (num == trackNumber && songsAmount>1){
         num = Math.floor(Math.random()*songsAmount);
     }
