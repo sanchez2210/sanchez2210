@@ -26,9 +26,7 @@ req.addEventListener("load",function () {
 req.send();
 
 consoleLog("Screen width: "+ screen.width +", Screen Heigth: "+ screen.height);
-consoleLog("Player. Can play audio/mpeg: " + player.canPlayType("audio/mpeg"));
-consoleLog("Player.muted: " + player.muted);
-consoleLog("Player.autoplay: " + player.autoplay);
+player.addEventListener("error", function(e){consoleLog(JSON.stringify(e));})
 
 var jssor_1_slider_init = function() {
 
@@ -129,7 +127,7 @@ function nextSong(){
 function loadTrack(i) { //load only no play
     var src = "https://s3-sa-east-1.amazonaws.com/wixtestbucket/music/" + i + ".mp3";
     source.src = src;
-    setCurrent(i)
+    setCurrent(i);
     player.load();
 }
 
