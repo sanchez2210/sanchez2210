@@ -6,7 +6,6 @@ var source = document.getElementById("playersource");
 var player = document.getElementById("player");
 var shuffle = false;
 var imagesContainer = document.getElementById("imagesContainer");
-var console = document.getElementById("console");
 
 var req = new XMLHttpRequest();
 var filesJson;
@@ -15,6 +14,7 @@ req.addEventListener("load",function () {
     filesJson = JSON.parse(this.responseText);
     songsAmount = parseInt(filesJson.songs);
     imagesAmount = parseInt(filesJson.images);
+    shuffle = filesJson.shuffle;
     init();
 });
 req.send();
@@ -24,7 +24,6 @@ var jssor_1_slider_init = function() {
     var jssor_1_SlideshowTransitions = [
         {$Duration:4000,$Opacity:2,$Brother:{$Duration:4000,$Opacity:2}}
     ];
-
     var jssor_1_options = {
         $AutoPlay: true,
         $Idle: 10000,
@@ -72,6 +71,7 @@ function prevSong(){
         playTrack(trackNumber);
     else
         loadTrack(trackNumber);
+    return trackNumber;
 }
 function nextSong(){
     trackNumber = shuffle ? getRNG() : ++trackNumber%songsAmount;
@@ -79,6 +79,7 @@ function nextSong(){
         playTrack(trackNumber);
     else
         loadTrack(trackNumber);
+    return trackNumber;
 }
 
 function loadTrack(i) { //load only no play
@@ -103,6 +104,7 @@ function setCurrent(i){ //Sets a class selector of song-current for styling;
 
 function toggleShuffle(){
     shuffle = !shuffle;
+    return shuffle;
 }
 
 function getRNG(){
@@ -110,7 +112,6 @@ function getRNG(){
     while (num == trackNumber && songsAmount>1){
         num = Math.floor(Math.random()*songsAmount);
     }
-    console.log(num);
     return num;
 }
 
