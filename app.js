@@ -25,9 +25,6 @@ req.addEventListener("load",function () {
 });
 req.send();
 
-consoleLog("Screen width: "+ screen.width +", Screen Heigth: "+ screen.height);
-player.addEventListener("error", function(e){consoleLog(JSON.stringify(e));})
-
 var jssor_1_slider_init = function() {
 
     var jssor_1_SlideshowTransitions = [
@@ -36,6 +33,7 @@ var jssor_1_slider_init = function() {
 
     var jssor_1_options = {
         $AutoPlay: true,
+        $FillMode: "3",
         $SlideshowOptions: {
         $Class: $JssorSlideshowRunner$,
         $Transitions: jssor_1_SlideshowTransitions,
@@ -73,21 +71,21 @@ var jssor_1_slider_init = function() {
 
 function init() { //This code starts everything as soon as files.json is read
     trackNumber = 0;
-    songs.innerHTML = "";
-    for (var i = 0; i< songsAmount ; i++) {
+    // songs.innerHTML = "";
+    // for (var i = 0; i< songsAmount ; i++) {
 
-        var li = document.createElement("li");
-        li.setAttribute("class", "song");
-        li.innerHTML= i + ".mp3";
-        li.id = i;
+    //     var li = document.createElement("li");
+    //     li.setAttribute("class", "song");
+    //     li.innerHTML= i + ".mp3";
+    //     li.id = i;
 
-        li.addEventListener("click", (function(i){
-            trackNumber=i;
-            playTrack(i);
-        }).bind(null,i),false);
+    //     li.addEventListener("click", (function(i){
+    //         trackNumber=i;
+    //         playTrack(i);
+    //     }).bind(null,i),false);
 
-        songs.appendChild(li);
-    }
+    //     songs.appendChild(li);
+    // }
 
     for(var j = 0; j < imagesAmount ; j++){
 
@@ -103,10 +101,10 @@ function init() { //This code starts everything as soon as files.json is read
     loadTrack(trackNumber);
 };
 
-prevButton.addEventListener("click", prevSong,false);
-nextButton.addEventListener("click", nextSong,false);
+// prevButton.addEventListener("click", prevSong,false);
+// nextButton.addEventListener("click", nextSong,false);
 player.addEventListener("ended", nextSong, false);
-shuffleButton.addEventListener("click",toggleShuffle,false);
+// shuffleButton.addEventListener("click",toggleShuffle,false);
 
 
 function prevSong(){
@@ -125,7 +123,7 @@ function nextSong(){
 }
 
 function loadTrack(i) { //load only no play
-    var src = "https://s3-sa-east-1.amazonaws.com/wixtestbucket/music/" + i + ".mp3";
+    var src = /*"https://s3-sa-east-1.amazonaws.com/wixtestbucket/music/" +*/ "music/" + i + ".mp3";
     source.src = src;
     setCurrent(i);
     player.load();
@@ -138,9 +136,10 @@ function playTrack(i){ //load and play
 
 function setCurrent(i){ //Sets a class selector of song-current for styling;
     var current = document.querySelector(".song-current");
-    if(current)
+    if(current){
         current.classList.remove("song-current");
-    document.getElementById(i).classList.add("song-current");
+        document.getElementById(i).classList.add("song-current");
+    }
 }
 
 function toggleShuffle(){
