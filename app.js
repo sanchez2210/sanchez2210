@@ -42,6 +42,7 @@ var jssor_1_slider_init = function() {
     };
 
     var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+};
 
 
 function init() { //This code starts everything as soon as files.json is read
