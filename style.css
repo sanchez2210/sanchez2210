@@ -3,77 +3,9 @@
 }
 
 body{
-    background-color: #090209;
-}
-
-#main{
-    width: 900px;
-    margin-left: auto;
-    margin-right: auto;
+    background-color: #050505;
 }
 
 #player {
-    width: 600px;
-    margin-left: auto;
-    margin-right: auto;
     display: none;
-}
-
-
-#player_controls {
-    width: 150px;
-    display: flex;
-    list-style: none;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0;
-    justify-content: space-between;
-}
-#player_controls>li {
-    display: block;
-}
-
-.songJump {
-    width: 100%;
-}
-
-#playlist {
-    width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-    
-}
-
-#songs {
-    width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0;
-    list-style: none;
-}
-.song {
-    background-color: white;
-}
-.song:hover {
-    background-color: #f1f1f1;
-}
-
-.song-current {
-    background-color: #f1f1f1;
-}
-
-#shuffle>input {
-    height: 2em;
-    width: 2em;
-    display: block;
-    -webkit-appearance: none;
-    background-color: lightgrey;
-}
-
-#shuffle>input:checked {
-    height: 2em;
-    width: 2em;
-    display: block;
-    -webkit-appearance: none;
-    background-color: grey;
 }
