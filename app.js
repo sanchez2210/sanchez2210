@@ -1,3 +1,12 @@
+config = {
+    songs: 4,
+    images: 2,
+    movies:1, 
+    clips: 0,
+    shuffle: true,
+    idle : 5000
+};
+
 var moviesAmount = 0;
 var songsAmount=0;
 var imagesAmount=0;
@@ -7,24 +16,20 @@ var player = document.getElementById("player");
 var shuffle = false;
 var imagesContainer = document.getElementById("imagesContainer");
 var slidesEvent = new Event('built-slides');
+var arrangeEvent = new Event('arranged-slides');
+var detectedVideos = [];
+var jssor_1_slider;
 
-
-config = {
-    songs: 4,
-    images: 2,
-    movies:1, 
-    clips: 0,
-    shuffle: true,
-    idle : 1000,
-    movies_positions: [1]
-};
 songsAmount = config.songs;
 imagesAmount = config.images;
 moviesAmount = config.movies;
 shuffle = (config.shuffle == 'true');
 
 buildSlides();
-document.addEventListener('built-slides',init,false);
+document.addEventListener('built-slides',arrangeSlides,false);
+document.addEventListener('arranged-slides',main,false);
+
+
 
 function jssor_1_slider_init() {
 
@@ -48,15 +53,28 @@ function jssor_1_slider_init() {
         }
     };
 
-    var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+    jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
 };
 
 
-function init() {
-    trackNumber = 0;
+function main() {
     jssor_1_slider_init();
-    loadTrack(trackNumber);
     player.addEventListener("ended", nextSong, false);
+    loadTrack(trackNumber);
+    updateDimensions();
+    addResumeListeners();
+    jssor_1_slider.$On($JssorSlider$.$EVT_SLIDESHOW_START,function(slideIndex, progress, progressBegin, idleBegin, idleEnd, progressEnd){
+        if (detectedVideos.indexOf(slideIndex) >= 0){
+            if (progress == progressBegin){
+                fadeOut(4000);
+                jssor_1_slider.$Pause();
+            }
+            document.getElementById(slideIndex).firstChild.currentTime = 0;
+            document.getElementById(slideIndex).firstChild.play();
+            if (progress == progressEnd)
+                fadeIn(3000);
+        }
+    })
 };
 
 
@@ -68,6 +86,7 @@ function buildSlides() {
         var event = new Event ('checked-source');
 
         var div = document.createElement("div");
+        div.id = i;
 
         var img = document.createElement("img");
         img.src = "img/" + i + ".jpg";
@@ -77,6 +96,7 @@ function buildSlides() {
         var video = document.createElement("video");
         video.src= "img/" + i + ".mp4";
         
+        
         img.addEventListener('load', (function(div,img){
             div.appendChild(img);
             imagesContainer.appendChild(div);
@@ -85,15 +105,47 @@ function buildSlides() {
         }).bind(null,div,img),false);
         
         img.addEventListener('error', function(div,video){
+            detectedVideos.push(parseInt(div.id));
             div.appendChild(video);
             imagesContainer.appendChild(div);
             if(imagesContainer.childElementCount-1 == slideCount)
                 document.dispatchEvent(slidesEvent);
         }.bind(null,div,video));
-        
     }
 }
 
+function arrangeSlides() {
+    var slideCount = imagesAmount + moviesAmount;
+    var temp;
+    for (var i = 0 ; i < slideCount ; i++) {
+        temp = imagesContainer.removeChild(document.getElementById(i));
+        imagesContainer.appendChild(temp);
+    }
+    document.dispatchEvent(arrangeEvent);
+}
+
+function addResumeListeners(){
+    detectedVideos.forEach(function(i){
+        document.getElementById(i).firstChild.addEventListener('ended',jssor_1_slider.$Play);
+    });
+}
+
+function updateDimensions() {
+    document.querySelectorAll("video").forEach(function(video){
+        var testRatio = video.videoWidth / video.videoHeight - jssor_1_slider.$OriginalWidth() / jssor_1_slider.$OriginalHeight();
+        if (testRatio > 0){
+            video.width = jssor_1_slider.$OriginalWidth();
+        }
+        else if (testRatio < 0) {
+            video.videoHeight = jssor_1_slider.$OriginalHeight();
+        }
+        else {
+            video.width = jssor_1_slider.$OriginalWidth();
+            video.height = jssor_1_slider.$OriginalHeight();
+        }
+
+    });
+}
 
 function prevSong(){
     trackNumber = shuffle ? getRNG() : (songsAmount + (--trackNumber)) % songsAmount;
@@ -141,7 +193,6 @@ function fadeOut(milliseconds = 0){
             if(player.volume == 1){
                 dec = 90;
             }
-            console.log(dec);
             player.volume = "0." + dec;
             setTimeout(reduceVolume, stepDuration);
         }
@@ -163,10 +214,8 @@ function fadeIn(milliseconds = 0){
         {
             if(player.volume == 0){
                 player.play();
-                console.log("play");
             }
             var dec = parseInt(player.volume.toFixed(2).replace(/\d./i,"")) + 10;
-            console.log(dec);
             if (dec==100)
                 player.volume = 1;
             else 
