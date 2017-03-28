@@ -63,18 +63,15 @@ function main() {
     loadTrack(trackNumber);
     updateDimensions();
     addResumeListeners();
-    jssor_1_slider.$On($JssorSlider$.$EVT_STATE_CHANGE,function(slideIndex, progress, progressBegin, idleBegin, idleEnd, progressEnd){
+    jssor_1_slider.$On($JssorSlider$.$EVT_SLIDESHOW_START,function(slideIndex, progress, progressBegin, idleBegin, idleEnd, progressEnd){
         if (detectedVideos.indexOf(slideIndex) >= 0){
-            if (progress == progressBegin){
-                fadeOut(4000);
-                jssor_1_slider.$Pause();
-            }
+            fadeOut(4000);
+            jssor_1_slider.$Pause();
             document.getElementById(slideIndex).firstChild.currentTime = 0;
             document.getElementById(slideIndex).firstChild.play();
         }
         else {
-            if (progress == progressBegin)
-                fadeIn(3000);
+            fadeIn(3000);
         }
     })
 };
@@ -169,7 +166,6 @@ function nextSong(){
 function loadTrack(i) { //load only no play
     var src = /*"https://s3-sa-east-1.amazonaws.com/wixtestbucket/music/" +*/ "music/" + i + ".mp3";
     source.src = src;
-    setCurrent(i);
     player.load();
 }
 
@@ -227,14 +223,6 @@ function fadeIn(milliseconds = 0){
         }
     }
 
-}
-
-function setCurrent(i){ //Sets a class selector of song-current for styling;
-    var current = document.querySelector(".song-current");
-    if(current){
-        current.classList.remove("song-current");
-        document.getElementById(i).classList.add("song-current");
-    }
 }
 
 function toggleShuffle(){
