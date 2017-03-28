@@ -63,7 +63,7 @@ function main() {
     loadTrack(trackNumber);
     updateDimensions();
     addResumeListeners();
-    jssor_1_slider.$On($JssorSlider$.$EVT_SLIDESHOW_START,function(slideIndex, progress, progressBegin, idleBegin, idleEnd, progressEnd){
+    jssor_1_slider.$On($JssorSlider$.$EVT_STATE_CHANGE,function(slideIndex, progress, progressBegin, idleBegin, idleEnd, progressEnd){
         if (detectedVideos.indexOf(slideIndex) >= 0){
             if (progress == progressBegin){
                 fadeOut(4000);
@@ -71,7 +71,9 @@ function main() {
             }
             document.getElementById(slideIndex).firstChild.currentTime = 0;
             document.getElementById(slideIndex).firstChild.play();
-            if (progress == progressEnd)
+        }
+        else {
+            if (progress == progressBegin)
                 fadeIn(3000);
         }
     })
