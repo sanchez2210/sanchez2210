@@ -1,7 +1,7 @@
 config = {
     songs: 4,
-    images: 2,
-    movies:1, 
+    images: 3,
+    movies:2, 
     clips: 0,
     shuffle: true,
     idle : 5000
@@ -32,7 +32,7 @@ document.addEventListener('arranged-slides',main,false);
 function jssor_1_slider_init() {
 
     var jssor_1_SlideshowTransitions = [
-        {$Duration:4000,$Opacity:2,$Brother:{$Duration:4000,$Opacity:2}}
+        {$Duration:2500,$Opacity:2,$Brother:{$Duration:4000,$Opacity:2}}
     ];
     var jssor_1_options = {
         $AutoPlay: true,
@@ -55,7 +55,7 @@ function main() {
     loadTrack(trackNumber);
     updateDimensions();
     addResumeListeners();
-    jssor_1_slider.$On($JssorSlider$.$EVT_SLIDESHOW_START,function(slideIndex, progress, progressBegin, idleBegin, idleEnd, progressEnd){
+    jssor_1_slider.$On($JssorSlider$.$EVT_SLIDESHOW_START,function(slideIndex, progress){
         if (detectedVideos.indexOf(slideIndex) >= 0){
             fadeOut(4000);
             jssor_1_slider.$Pause();
