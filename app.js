@@ -29,8 +29,6 @@ buildSlides();
 document.addEventListener('built-slides',arrangeSlides,false);
 document.addEventListener('arranged-slides',main,false);
 
-
-
 function jssor_1_slider_init() {
 
     var jssor_1_SlideshowTransitions = [
@@ -44,12 +42,6 @@ function jssor_1_slider_init() {
             $Class: $JssorSlideshowRunner$,
             $Transitions: jssor_1_SlideshowTransitions,
             $TransitionsOrder: 1
-        },
-        $ArrowNavigatorOptions: {
-            $Class: $JssorArrowNavigator$
-        },
-        $BulletNavigatorOptions: {
-            $Class: $JssorBulletNavigator$
         }
     };
 
