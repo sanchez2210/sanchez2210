@@ -73,6 +73,7 @@ buildSlides();
 
 
 function buildSlides() {
+    consoleLog("fffff");
     var slideCount = imagesAmount + moviesAmount;
     console.log("slideCount: " +  slideCount);
 
