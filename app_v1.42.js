@@ -79,7 +79,7 @@ function buildSlides() {
     var slideCount = imagesAmount + moviesAmount;
     console.log("slideCount: " +  slideCount);
 
-    for( var i = 0; i < slideCount ; i++){
+    for( var i = 0; i < 2 ; i++){
 
         var event = new Event ('checked-source');
 
