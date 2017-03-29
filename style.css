@@ -13,3 +13,8 @@ body{
 img {
     font-size: 40px;
 }
+
+h1 {
+    color: green;
+    font-size: 4em;
+}
