@@ -6,6 +6,7 @@ config = {
     shuffle: true,
     idle : 5000
 };
+consoleLog("1");
 
 var moviesAmount = 0;
 var songsAmount=0;
@@ -20,13 +21,17 @@ var arrangeEvent = new Event('arranged-slides');
 var detectedVideos = [];
 var jssor_1_slider;
 var debug = document.getElementById("debug");
+consoleLog("2");
 
 songsAmount = config.songs;
 imagesAmount = config.images;
 moviesAmount = config.movies;
 shuffle = (config.shuffle == 'true');
+consoleLog("3");
 
 buildSlides();
+consoleLog("4");
+
 //document.addEventListener('built-slides',arrangeSlides,false);
 // document.addEventListener('arranged-slides',main,false);
 
@@ -75,8 +80,6 @@ function buildSlides() {
     console.log("slideCount: " +  slideCount);
 
     for( var i = 0; i < 2 ; i++){
-
-        var event = new Event ('checked-source');
 
         var div = document.createElement("div");
         div.id = i;
