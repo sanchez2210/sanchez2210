@@ -7,6 +7,12 @@ config = {
     idle : 5000
 };
 
+
+window.onerror = function(msg, url, linenumber) {
+    alert('Error message: '+msg+'\nURL: '+url+'\nLine Number: '+linenumber);
+    return true;
+}
+
 var moviesAmount = 0;
 var songsAmount=0;
 var imagesAmount=0;
@@ -26,7 +32,7 @@ moviesAmount = config.movies;
 shuffle = (config.shuffle == 'true');
 
 buildSlides();
-document.addEventListener('built-slides',arrangeSlides,false);
+//document.addEventListener('built-slides',arrangeSlides,false);
 // document.addEventListener('arranged-slides',main,false);
 
 function jssor_1_slider_init() {
