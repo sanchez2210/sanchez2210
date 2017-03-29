@@ -27,7 +27,7 @@ shuffle = (config.shuffle == 'true');
 
 buildSlides();
 document.addEventListener('built-slides',arrangeSlides,false);
-document.addEventListener('arranged-slides',main,false);
+// document.addEventListener('arranged-slides',main,false);
 
 function jssor_1_slider_init() {
 
@@ -53,7 +53,7 @@ function main() {
     jssor_1_slider_init();
     player.addEventListener("ended", nextSong, false);
     loadTrack(trackNumber);
-    updateDimensions();
+    // updateDimensions();
     addResumeListeners();
     jssor_1_slider.$On($JssorSlider$.$EVT_SLIDESHOW_START,function(slideIndex, progress){
         if (detectedVideos.indexOf(slideIndex) >= 0){
@@ -71,6 +71,7 @@ function main() {
 
 function buildSlides() {
     var slideCount = imagesAmount + moviesAmount;
+    console.log("slideCount: " +  slideCount);
 
     for( var i = 0; i < slideCount ; i++){
 
@@ -121,22 +122,21 @@ function addResumeListeners(){
     });
 }
 
-function updateDimensions() {
-    document.querySelectorAll("video").forEach(function(video){
-        var testRatio = video.videoWidth / video.videoHeight - jssor_1_slider.$OriginalWidth() / jssor_1_slider.$OriginalHeight();
-        if (testRatio > 0){
-            video.width = jssor_1_slider.$OriginalWidth();
-        }
-        else if (testRatio < 0) {
-            video.videoHeight = jssor_1_slider.$OriginalHeight();
-        }
-        else {
-            video.width = jssor_1_slider.$OriginalWidth();
-            video.height = jssor_1_slider.$OriginalHeight();
-        }
-
-    });
-}
+// function updateDimensions() {
+//     document.querySelectorAll("video").forEach(function(video){
+//         var testRatio = video.videoWidth / video.videoHeight - jssor_1_slider.$OriginalWidth() / jssor_1_slider.$OriginalHeight();
+//         if (testRatio > 0){
+//             video.width = jssor_1_slider.$OriginalWidth();
+//         }
+//         else if (testRatio < 0) {
+//             video.videoHeight = jssor_1_slider.$OriginalHeight();
+//         }
+//         else {
+//             video.width = jssor_1_slider.$OriginalWidth();
+//             video.height = jssor_1_slider.$OriginalHeight();
+//         }
+//     });
+// }
 
 function prevSong(){
     trackNumber = shuffle ? getRNG() : (songsAmount + (--trackNumber)) % songsAmount;
