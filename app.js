@@ -1,7 +1,7 @@
 config = {
     songs: 4,
     images: 3,
-    movies:2, 
+    movies:0, 
     clips: 0,
     shuffle: true,
     idle : 5000
@@ -96,13 +96,13 @@ function buildSlides() {
                 document.dispatchEvent(slidesEvent);
         }).bind(null,div,img),false);
         
-        img.addEventListener('error', function(div,video){
-            detectedVideos.push(parseInt(div.id));
-            div.appendChild(video);
-            imagesContainer.appendChild(div);
-            if(imagesContainer.childElementCount-1 == slideCount)
-                document.dispatchEvent(slidesEvent);
-        }.bind(null,div,video));
+        // img.addEventListener('error', function(div,video){
+        //     detectedVideos.push(parseInt(div.id));
+        //     div.appendChild(video);
+        //     imagesContainer.appendChild(div);
+        //     if(imagesContainer.childElementCount-1 == slideCount)
+        //         document.dispatchEvent(slidesEvent);
+        // }.bind(null,div,video));
     }
 }
 
