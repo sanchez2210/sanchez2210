@@ -95,8 +95,8 @@ function buildSlides() {
         img.addEventListener('load', (function(div,img){
             div.appendChild(img);
             imagesContainer.appendChild(div);
-            if(imagesContainer.childElementCount-1 == slideCount)
-                 document.dispatchEvent(slidesEvent);
+            // if(imagesContainer.childElementCount-1 == slideCount)
+            //      document.dispatchEvent(slidesEvent);
         }).bind(null,div,img),false);
         
         img.addEventListener('error', function(div,video){
@@ -175,58 +175,56 @@ function playTrack(i){ //load and play
     
 }
 
-// function fadeOut(milliseconds = 0){
-//     consoleLog("5");
-//     var steps = 10;
-//     var stepDuration = milliseconds / steps;
+function fadeOut(milliseconds = 0){
+    consoleLog("5");
+    var steps = 10;
+    var stepDuration = milliseconds / steps;
 
-//     reduceVolume();
+    reduceVolume();
+}
 
-//     function reduceVolume(){
-//         if( player.volume == 0 ){
-//             player.pause()
-//             return
-//         }
-//         else
-//         {
-//             var dec = parseInt(player.volume.toFixed(2).replace(/\d./i,"")) - 10;
-//             if(player.volume == 1){
-//                 dec = 90;
-//             }
-//             player.volume = "0." + dec;
-//             setTimeout(reduceVolume, stepDuration);
-//         }
-//     }
+function reduceVolume(){
+    if( player.volume == 0 ){
+        player.pause();  //WAS player.pause() NOW player.pause();  -_-
+        return
+    }
+    else
+    {
+        var dec = parseInt(player.volume.toFixed(2).replace(/\d./i,"")) - 10;
+        if(player.volume == 1){
+            dec = 90;
+        }
+        player.volume = "0." + dec;
+        setTimeout(reduceVolume, stepDuration);
+    }
+}
 
-// }
+function fadeIn(milliseconds = 0){
+    consoleLog("5");
+    var steps = 10;
+    var stepDuration = milliseconds / steps;
 
-// function fadeIn(milliseconds = 0){
-//     consoleLog("5");
-//     var steps = 10;
-//     var stepDuration = milliseconds / steps;
+    raiseVolume();
+}
 
-//     raiseVolume();
+function raiseVolume(){
+    if( player.volume == 1 ){
+        return
+    }
+    else 
+    {
+        if(player.volume == 0){
+            player.play();
+        }
+        var dec = parseInt(player.volume.toFixed(2).replace(/\d./i,"")) + 10;
+        if (dec==100)
+            player.volume = 1;
+        else 
+            player.volume = "0." + dec;
 
-//     function raiseVolume(){
-//         if( player.volume == 1 ){
-//             return
-//         }
-//         else 
-//         {
-//             if(player.volume == 0){
-//                 player.play();
-//             }
-//             var dec = parseInt(player.volume.toFixed(2).replace(/\d./i,"")) + 10;
-//             if (dec==100)
-//                 player.volume = 1;
-//             else 
-//                 player.volume = "0." + dec;
-
-//             setTimeout(raiseVolume,stepDuration);
-//         }
-//     }
-
-// }
+        setTimeout(raiseVolume,stepDuration);
+    }
+}
 
 function toggleShuffle(){
     consoleLog("6");
