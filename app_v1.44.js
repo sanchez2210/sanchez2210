@@ -7,12 +7,6 @@ config = {
     idle : 5000
 };
 
-
-window.onerror = function(msg, url, linenumber) {
-    alert('Error message: '+msg+'\nURL: '+url+'\nLine Number: '+linenumber);
-    return true;
-}
-
 var moviesAmount = 0;
 var songsAmount=0;
 var imagesAmount=0;
@@ -25,6 +19,7 @@ var slidesEvent = new Event('built-slides');
 var arrangeEvent = new Event('arranged-slides');
 var detectedVideos = [];
 var jssor_1_slider;
+var debug = document.getElementById("debug");
 
 songsAmount = config.songs;
 imagesAmount = config.images;
@@ -90,9 +85,12 @@ function buildSlides() {
         img.src = "img/" + i + ".jpg";
         img.alt = img.src + " not found.";
         img.setAttribute("data-u","image");
+        consoleLog(img.outerHTML.replace("<","&lt;").replace(">","&gt;"));
+        
 
         var video = document.createElement("video");
         video.src= "img/" + i + ".mp4";
+        
         
         
         img.addEventListener('load', (function(div,img){
@@ -237,5 +235,5 @@ function getRNG(){
 }
 
 function consoleLog(input){
-    console.innerHTML += input + "<br>";
+    debug.innerHTML += input + "<br>";
 }
