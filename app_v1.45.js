@@ -1,3 +1,4 @@
+var debug = document.getElementById("debug");
 config = {
     songs: 4,
     images: 3,
@@ -20,7 +21,7 @@ var slidesEvent = new Event('built-slides');
 var arrangeEvent = new Event('arranged-slides');
 var detectedVideos = [];
 var jssor_1_slider;
-var debug = document.getElementById("debug");
+
 consoleLog("2");
 
 songsAmount = config.songs;
