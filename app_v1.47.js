@@ -89,28 +89,26 @@ function buildSlides() {
         img.src = "img/" + i + ".jpg";
         img.alt = img.src + " not found.";
         img.setAttribute("data-u","image");
-        consoleLog(img.outerHTML.replace("<","&lt;").replace(">","&gt;"));
         
 
         var video = document.createElement("video");
         video.src= "img/" + i + ".mp4";
         
         
-        
         img.addEventListener('load', (function(div,img){
             div.appendChild(img);
             imagesContainer.appendChild(div);
-            // if(imagesContainer.childElementCount-1 == slideCount)
-            //     document.dispatchEvent(slidesEvent);
+            if(imagesContainer.childElementCount-1 == slideCount)
+                 document.dispatchEvent(slidesEvent);
         }).bind(null,div,img),false);
         
-        // img.addEventListener('error', function(div,video){
-        //     detectedVideos.push(parseInt(div.id));
-        //     div.appendChild(video);
-        //     imagesContainer.appendChild(div);
-        //     if(imagesContainer.childElementCount-1 == slideCount)
-        //         document.dispatchEvent(slidesEvent);
-        // }.bind(null,div,video));
+        img.addEventListener('error', function(div,video){
+            detectedVideos.push(parseInt(div.id));
+            div.appendChild(video);
+            imagesContainer.appendChild(div);
+            if(imagesContainer.childElementCount-1 == slideCount)
+                document.dispatchEvent(slidesEvent);
+        }.bind(null,div,video));
     }
 }
 
@@ -146,97 +144,97 @@ function buildSlides() {
 //     });
 // }
 
-// function prevSong(){
-//     trackNumber = shuffle ? getRNG() : (songsAmount + (--trackNumber)) % songsAmount;
-//     if(!player.paused || player.ended)
-//         playTrack(trackNumber);
-//     else
-//         loadTrack(trackNumber);
-//     return trackNumber;
-// }
-// function nextSong(){
-//     trackNumber = shuffle ? getRNG() : ++trackNumber%songsAmount;
-//     if(!player.paused || player.ended)
-//         playTrack(trackNumber);
-//     else
-//         loadTrack(trackNumber);
-//     return trackNumber;
-// }
+function prevSong(){
+    trackNumber = shuffle ? getRNG() : (songsAmount + (--trackNumber)) % songsAmount;
+    if(!player.paused || player.ended)
+        playTrack(trackNumber);
+    else
+        loadTrack(trackNumber);
+    return trackNumber;
+}
+function nextSong(){
+    trackNumber = shuffle ? getRNG() : ++trackNumber%songsAmount;
+    if(!player.paused || player.ended)
+        playTrack(trackNumber);
+    else
+        loadTrack(trackNumber);
+    return trackNumber;
+}
 
-// function loadTrack(i) { //load only no play
-//     var src = /*"https://s3-sa-east-1.amazonaws.com/wixtestbucket/music/" +*/ "music/" + i + ".mp3";
-//     source.src = src;
-//     player.load();
-// }
+function loadTrack(i) { //load only no play
+    var src = /*"https://s3-sa-east-1.amazonaws.com/wixtestbucket/music/" +*/ "music/" + i + ".mp3";
+    source.src = src;
+    player.load();
+}
 
-// function playTrack(i){ //load and play
-//     loadTrack(i);
-//     player.play();
-// }
+function playTrack(i){ //load and play
+    loadTrack(i);
+    player.play();
+}
 
-// function fadeOut(milliseconds = 0){
-//     var steps = 10;
-//     var stepDuration = milliseconds / steps;
+function fadeOut(milliseconds = 0){
+    var steps = 10;
+    var stepDuration = milliseconds / steps;
 
-//     reduceVolume();
+    reduceVolume();
 
-//     function reduceVolume(){
-//         if( player.volume == 0 ){
-//             player.pause()
-//             return
-//         }
-//         else
-//         {
-//             var dec = parseInt(player.volume.toFixed(2).replace(/\d./i,"")) - 10;
-//             if(player.volume == 1){
-//                 dec = 90;
-//             }
-//             player.volume = "0." + dec;
-//             setTimeout(reduceVolume, stepDuration);
-//         }
-//     }
+    function reduceVolume(){
+        if( player.volume == 0 ){
+            player.pause()
+            return
+        }
+        else
+        {
+            var dec = parseInt(player.volume.toFixed(2).replace(/\d./i,"")) - 10;
+            if(player.volume == 1){
+                dec = 90;
+            }
+            player.volume = "0." + dec;
+            setTimeout(reduceVolume, stepDuration);
+        }
+    }
 
-// }
+}
 
-// function fadeIn(milliseconds = 0){
-//     var steps = 10;
-//     var stepDuration = milliseconds / steps;
+function fadeIn(milliseconds = 0){
+    var steps = 10;
+    var stepDuration = milliseconds / steps;
 
-//     raiseVolume();
+    raiseVolume();
 
-//     function raiseVolume(){
-//         if( player.volume == 1 ){
-//             return
-//         }
-//         else 
-//         {
-//             if(player.volume == 0){
-//                 player.play();
-//             }
-//             var dec = parseInt(player.volume.toFixed(2).replace(/\d./i,"")) + 10;
-//             if (dec==100)
-//                 player.volume = 1;
-//             else 
-//                 player.volume = "0." + dec;
+    function raiseVolume(){
+        if( player.volume == 1 ){
+            return
+        }
+        else 
+        {
+            if(player.volume == 0){
+                player.play();
+            }
+            var dec = parseInt(player.volume.toFixed(2).replace(/\d./i,"")) + 10;
+            if (dec==100)
+                player.volume = 1;
+            else 
+                player.volume = "0." + dec;
 
-//             setTimeout(raiseVolume,stepDuration);
-//         }
-//     }
+            setTimeout(raiseVolume,stepDuration);
+        }
+    }
 
-// }
+}
 
-// function toggleShuffle(){
-//     shuffle = !shuffle;
-//     return shuffle;
-// }
+function toggleShuffle(){
+    shuffle = !shuffle;
+    return shuffle;
+}
 
-// function getRNG(){
-//     var num = trackNumber;
-//     while (num == trackNumber && songsAmount>1){
-//         num = Math.floor(Math.random()*songsAmount);
-//     }
-//     return num;
-// }
+function getRNG(){
+    var num = trackNumber;
+    while (num == trackNumber && songsAmount>1){
+        num = Math.floor(Math.random()*songsAmount);
+    }
+    return num;
+}
 
 function consoleLog(input){
     debug.innerHTML += input + "<br>";
