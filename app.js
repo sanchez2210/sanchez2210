@@ -95,12 +95,12 @@ function buildSlides() {
         video.src= "img/" + i + ".mp4";
         
         
-        img.addEventListener('load', (function(div,img){
-            div.appendChild(img);
-            imagesContainer.appendChild(div);
-            if(imagesContainer.childElementCount-1 == slideCount)
-                document.dispatchEvent(slidesEvent);
-        }).bind(null,div,img),false);
+        // img.addEventListener('load', (function(div,img){
+        //     div.appendChild(img);
+        //     imagesContainer.appendChild(div);
+        //     if(imagesContainer.childElementCount-1 == slideCount)
+        //         document.dispatchEvent(slidesEvent);
+        // }).bind(null,div,img),false);
         
         // img.addEventListener('error', function(div,video){
         //     detectedVideos.push(parseInt(div.id));
