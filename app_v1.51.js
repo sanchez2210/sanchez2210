@@ -181,21 +181,20 @@ function fadeOut(milliseconds = 0){
     var stepDuration = milliseconds / steps;
 
     reduceVolume();
-}
-
-function reduceVolume(){
-    if( player.volume == 0 ){
-        player.pause();  //WAS player.pause() NOW player.pause();  -_-
-        return
-    }
-    else
-    {
-        var dec = parseInt(player.volume.toFixed(2).replace(/\d./i,"")) - 10;
-        if(player.volume == 1){
-            dec = 90;
+    function reduceVolume(){
+        if( player.volume == 0 ){
+            player.pause();  //WAS player.pause() NOW player.pause();  -_-
+            return;
         }
-        player.volume = "0." + dec;
-        setTimeout(reduceVolume, stepDuration);
+        else
+        {
+            var dec = parseInt(player.volume.toFixed(2).replace(/\d./i,"")) - 10;
+            if(player.volume == 1){
+                dec = 90;
+            }
+            player.volume = "0." + dec;
+            setTimeout(reduceVolume, stepDuration);
+        }
     }
 }
 
@@ -205,26 +204,27 @@ function fadeIn(milliseconds = 0){
     var stepDuration = milliseconds / steps;
 
     raiseVolume();
-}
-
-function raiseVolume(){
-    if( player.volume == 1 ){
-        return
-    }
-    else 
-    {
-        if(player.volume == 0){
-            player.play();
+    function raiseVolume(){
+        if( player.volume == 1 ){
+            return;
         }
-        var dec = parseInt(player.volume.toFixed(2).replace(/\d./i,"")) + 10;
-        if (dec==100)
-            player.volume = 1;
         else 
-            player.volume = "0." + dec;
+        {
+            if(player.volume == 0){
+                player.play();
+            }
+            var dec = parseInt(player.volume.toFixed(2).replace(/\d./i,"")) + 10;
+            if (dec==100)
+                player.volume = 1;
+            else 
+                player.volume = "0." + dec;
 
-        setTimeout(raiseVolume,stepDuration);
+            setTimeout(raiseVolume,stepDuration);
+        }
     }
 }
+
+
 
 function toggleShuffle(){
     consoleLog("6");
