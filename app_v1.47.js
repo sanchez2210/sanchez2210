@@ -7,7 +7,6 @@ config = {
     shuffle: true,
     idle : 5000
 };
-consoleLog("1");
 
 var moviesAmount = 0;
 var songsAmount=0;
@@ -22,16 +21,13 @@ var arrangeEvent = new Event('arranged-slides');
 var detectedVideos = [];
 var jssor_1_slider;
 
-consoleLog("2");
 
 songsAmount = config.songs;
 imagesAmount = config.images;
 moviesAmount = config.movies;
 shuffle = (config.shuffle == 'true');
-consoleLog("3");
 
 buildSlides();
-consoleLog("4");
 
 //document.addEventListener('built-slides',arrangeSlides,false);
 // document.addEventListener('arranged-slides',main,false);
@@ -145,6 +141,7 @@ function buildSlides() {
 // }
 
 function prevSong(){
+    consoleLog("1");
     trackNumber = shuffle ? getRNG() : (songsAmount + (--trackNumber)) % songsAmount;
     if(!player.paused || player.ended)
         playTrack(trackNumber);
@@ -153,26 +150,32 @@ function prevSong(){
     return trackNumber;
 }
 function nextSong(){
+    consoleLog("2")
     trackNumber = shuffle ? getRNG() : ++trackNumber%songsAmount;
     if(!player.paused || player.ended)
         playTrack(trackNumber);
     else
         loadTrack(trackNumber);
     return trackNumber;
+    ;
 }
 
 function loadTrack(i) { //load only no play
+    consoleLog("3");
     var src = /*"https://s3-sa-east-1.amazonaws.com/wixtestbucket/music/" +*/ "music/" + i + ".mp3";
     source.src = src;
     player.load();
 }
 
 function playTrack(i){ //load and play
+    consoleLog("4");
     loadTrack(i);
     player.play();
+    
 }
 
 function fadeOut(milliseconds = 0){
+    consoleLog("5");
     var steps = 10;
     var stepDuration = milliseconds / steps;
 
@@ -197,6 +200,7 @@ function fadeOut(milliseconds = 0){
 }
 
 function fadeIn(milliseconds = 0){
+    consoleLog("5");
     var steps = 10;
     var stepDuration = milliseconds / steps;
 
@@ -224,11 +228,13 @@ function fadeIn(milliseconds = 0){
 }
 
 function toggleShuffle(){
+    consoleLog("6");
     shuffle = !shuffle;
     return shuffle;
 }
 
 function getRNG(){
+    consoleLog("7");
     var num = trackNumber;
     while (num == trackNumber && songsAmount>1){
         num = Math.floor(Math.random()*songsAmount);
