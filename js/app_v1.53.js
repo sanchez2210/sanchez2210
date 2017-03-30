@@ -56,7 +56,7 @@ function main() {
     updateDimensions();
     addResumeListeners();
     jssor_1_slider.$On($JssorSlider$.$EVT_SLIDESHOW_START,function(slideIndex, progress,progressStart,idleStart,idleEnd,progressEnd){
-        if (detectedVideos.indexOf(slideIndex) >= 0){
+        if (detectedVideos.indexOf(slideIndex+1) >= 0){
             fadeOut(4000);
         }
         else if (player.paused) {
@@ -64,10 +64,10 @@ function main() {
         }
     });
     jssor_1_slider.$On($JssorSlider$.$EVT_SLIDESHOW_END,function(slideIndex, progress,progressStart,idleStart,idleEnd,progressEnd){
-        if (detectedVideos.indexOf(slideIndex) >= 0){
+        if (detectedVideos.indexOf(slideIndex+1) >= 0){
             jssor_1_slider.$Pause();
-            document.getElementById(slideIndex).firstChild.currentTime = 0;
-            document.getElementById(slideIndex).firstChild.play();
+            document.getElementById(slideIndex+1).firstChild.currentTime = 0;
+            document.getElementById(slideIndex+1).firstChild.play();
         }
     });
 };
@@ -75,7 +75,7 @@ function main() {
 
 function buildSlides() {
 
-    for( var i = 0; i < slidesAmount ; i++){
+    for( var i = 1; i <= slidesAmount ; i++){
 
         var div = document.createElement("div");
         div.id = i;
@@ -109,7 +109,7 @@ function buildSlides() {
 
 function arrangeSlides() {
     var temp;
-    for (var i = 0 ; i < slidesAmount ; i++) {
+    for (var i = 1 ; i <= slidesAmount ; i++) {
         temp = slidesContainer.removeChild(document.getElementById(i));
         slidesContainer.appendChild(temp);
     }
@@ -118,7 +118,10 @@ function arrangeSlides() {
 
 function addResumeListeners(){
     detectedVideos.forEach(function(i){
-        document.getElementById(i).firstChild.addEventListener('ended',jssor_1_slider.$Play);
+        document.getElementById(i).firstChild.addEventListener('ended',function(){
+            jssor_1_slider.$Play();
+        });
+        
     });
 }
 
@@ -172,44 +175,43 @@ function fadeOut(milliseconds = 0){
     var steps = 10;
     var stepDuration = milliseconds / steps;
 
-    reduceVolume();
-    function reduceVolume(){
-        if( player.volume == 0 ){
-            player.pause();  //WAS player.pause() NOW player.pause();  -_-
-            return;
-        }
-        else
-        {
-            var dec = parseInt(player.volume.toFixed(2).replace(/\d./i,"")) - 10;
-            if(player.volume == 1){
-                dec = 90;
-            }
-            player.volume = "0." + dec;
-            setTimeout(reduceVolume, stepDuration);
-        }
-    }
+    // reduceVolume();
+    // function reduceVolume(){
+    //     if( player.volume == 0 ){
+    //         player.pause();  //WAS player.pause() NOW player.pause();  -_-
+    //     }
+    //     else
+    //     {
+    //         var dec = parseInt(player.volume.toFixed(2).replace(/\d./i,"")) - 10;
+    //         if(player.volume == 1){
+    //             dec = 90;
+    //         }
+    //         player.volume = "0." + dec;
+    //         setTimeout(reduceVolume, stepDuration);
+    //     }
+    // }
 }
 
 function fadeIn(milliseconds = 0){
     var steps = 10;
     var stepDuration = milliseconds / steps;
 
-    raiseVolume();
-    function raiseVolume(){
-        if ( player.volume != 1 )
-        {
-            if(player.volume == 0){
-                player.play();
-            }
-            var dec = parseInt(player.volume.toFixed(2).replace(/\d./i,"")) + 10;
-            if (dec==100)
-                player.volume = 1;
-            else 
-                player.volume = "0." + dec;
+    // raiseVolume();
+    // function raiseVolume(){
+    //     if ( player.volume != 1 )
+    //     {
+    //         if(player.volume == 0){
+    //             player.play();
+    //         }
+    //         var dec = parseInt(player.volume.toFixed(2).replace(/\d./i,"")) + 10;
+    //         if (dec==100)
+    //             player.volume = 1;
+    //         else 
+    //             player.volume = "0." + dec;
 
-            setTimeout(raiseVolume,stepDuration);
-        }
-    }
+    //         setTimeout(raiseVolume,stepDuration);
+    //     }
+    // }
 }
 
 
