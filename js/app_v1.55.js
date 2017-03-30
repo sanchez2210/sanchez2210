@@ -27,7 +27,7 @@ buildSlides();
 
 document.addEventListener('built-slides',arrangeSlides,false);
 
-//document.addEventListener('arranged-slides',main,false);
+document.addEventListener('arranged-slides',main,false);
 
 function jssor_1_slider_init() {
 
