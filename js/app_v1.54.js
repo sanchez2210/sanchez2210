@@ -27,7 +27,7 @@ buildSlides();
 
 document.addEventListener('built-slides',arrangeSlides,false);
 
-document.addEventListener('arranged-slides',main,false);
+//document.addEventListener('arranged-slides',main,false);
 
 function jssor_1_slider_init() {
 
@@ -168,51 +168,50 @@ function loadTrack(i) { //load only no play
 function playTrack(i){ //load and play
     loadTrack(i);
     player.play();
-    
 }
 
-function fadeOut(milliseconds = 0){
-    var steps = 10;
-    var stepDuration = milliseconds / steps;
+// function fadeOut(milliseconds = 0){
+//     var steps = 10;
+//     var stepDuration = milliseconds / steps;
 
-    // reduceVolume();
-    // function reduceVolume(){
-    //     if( player.volume == 0 ){
-    //         player.pause();  //WAS player.pause() NOW player.pause();  -_-
-    //     }
-    //     else
-    //     {
-    //         var dec = parseInt(player.volume.toFixed(2).replace(/\d./i,"")) - 10;
-    //         if(player.volume == 1){
-    //             dec = 90;
-    //         }
-    //         player.volume = "0." + dec;
-    //         setTimeout(reduceVolume, stepDuration);
-    //     }
-    // }
-}
+//     // reduceVolume();
+//     // function reduceVolume(){
+//     //     if( player.volume == 0 ){
+//     //         player.pause();  //WAS player.pause() NOW player.pause();  -_-
+//     //     }
+//     //     else
+//     //     {
+//     //         var dec = parseInt(player.volume.toFixed(2).replace(/\d./i,"")) - 10;
+//     //         if(player.volume == 1){
+//     //             dec = 90;
+//     //         }
+//     //         player.volume = "0." + dec;
+//     //         setTimeout(reduceVolume, stepDuration);
+//     //     }
+//     // }
+// }
 
-function fadeIn(milliseconds = 0){
-    var steps = 10;
-    var stepDuration = milliseconds / steps;
+// function fadeIn(milliseconds = 0){
+//     var steps = 10;
+//     var stepDuration = milliseconds / steps;
 
-    // raiseVolume();
-    // function raiseVolume(){
-    //     if ( player.volume != 1 )
-    //     {
-    //         if(player.volume == 0){
-    //             player.play();
-    //         }
-    //         var dec = parseInt(player.volume.toFixed(2).replace(/\d./i,"")) + 10;
-    //         if (dec==100)
-    //             player.volume = 1;
-    //         else 
-    //             player.volume = "0." + dec;
+//     // raiseVolume();
+//     // function raiseVolume(){
+//     //     if ( player.volume != 1 )
+//     //     {
+//     //         if(player.volume == 0){
+//     //             player.play();
+//     //         }
+//     //         var dec = parseInt(player.volume.toFixed(2).replace(/\d./i,"")) + 10;
+//     //         if (dec==100)
+//     //             player.volume = 1;
+//     //         else 
+//     //             player.volume = "0." + dec;
 
-    //         setTimeout(raiseVolume,stepDuration);
-    //     }
-    // }
-}
+//     //         setTimeout(raiseVolume,stepDuration);
+//     //     }
+//     // }
+// }
 
 
 
