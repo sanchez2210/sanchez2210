@@ -1,7 +1,7 @@
 var debug = document.getElementById("debug");
 config = {
     songs: 4,
-    slides: 3,
+    slides: 9,
     shuffle: true,
     idle : 5000
 };
@@ -9,8 +9,7 @@ config = {
 var songsAmount=0;
 var slidesAmount=0;
 var trackNumber = 0;
-var source = document.getElementById("playersource");
-var player = document.getElementById("player");
+var player = new Audio();
 var shuffle = false;
 var slidesContainer = document.getElementById("slidesContainer");
 var slidesEvent = new Event('built-slides');
@@ -52,7 +51,7 @@ function jssor_1_slider_init() {
 function main() {
     jssor_1_slider_init();
     player.addEventListener("ended", nextSong, false);
-    loadTrack(0);
+    playTrack(0);
     updateDimensions();
     addResumeListeners();
     jssor_1_slider.$On($JssorSlider$.$EVT_SLIDESHOW_START,function(slideIndex, progress,progressStart,idleStart,idleEnd,progressEnd){
@@ -161,7 +160,7 @@ function nextSong(){
 
 function loadTrack(i) { //load only no play
     var src = /*"https://s3-sa-east-1.amazonaws.com/wixtestbucket/music/" +*/ "music/" + i + ".mp3";
-    source.src = src;
+    player.src = src;
     player.load();
 }
 
