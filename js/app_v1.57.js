@@ -1,26 +1,34 @@
-var debug = document.getElementById("debug");
+// This is the configuration file. ---- ONLY edit this part of the code.
+
 config = {
-    songs: 4,
-    slides: 9,
-    shuffle: true,
-    idle : 5000
+    songs: 4, // Background music files to read.
+    slides: 9, // This is the number of files (image or video) that the slideshow should include.
+    shuffleSongs: true, // true OR false.
+    shuffleSlides: false, // true OR false.
+    idle : 5000, //This is the amount of time in milliseconds that each slide should stay on display, not including transitions.
+    source: "https://s3-sa-east-1.amazonaws.com/wixtestbucket/" // This place should contain the "music" and "slides" folders.
 };
 
-var songsAmount=0;
-var slidesAmount=0;
+//-----------------------------------------------------------
+//-----------------------------------------------------------
+
+
+
 var trackNumber = 0;
 var player = new Audio();
-var shuffle = false;
 var slidesContainer = document.getElementById("slidesContainer");
 var slidesEvent = new Event('built-slides');
 var arrangeEvent = new Event('arranged-slides');
 var detectedVideos = [];
 var jssor_1_slider;
+var tempSlides = [];
 
 
-songsAmount = config.songs;
-slidesAmount = config.slides;
-shuffle = (config.shuffle == 'true');
+var songsAmount = config.songs;
+var slidesAmount = config.slides;
+var shuffleSongs = config.shuffleSongs;
+var shuffleSlides = config.shuffleSlides;
+var sourcePrefix = config.source;
 
 buildSlides();
 
@@ -51,20 +59,21 @@ function jssor_1_slider_init() {
 function main() {
     jssor_1_slider_init();
     player.addEventListener("ended", nextSong, false);
-    playTrack(0);
+    playTrack(shuffleSongs ? getRNG(null,songsAmount) : 0);
     updateDimensions();
     addResumeListeners();
-    jssor_1_slider.$On($JssorSlider$.$EVT_SLIDESHOW_START,function(slideIndex, progress,progressStart,idleStart,idleEnd,progressEnd){
-        if (detectedVideos.indexOf(slideIndex+1) >= 0){
-            // fadeOut(4000);
-        }
-        else if (player.paused) {
-            // fadeIn(3000);
-        }
-    });
+    // jssor_1_slider.$On($JssorSlider$.$EVT_SLIDESHOW_START,function(slideIndex, progress,progressStart,idleStart,idleEnd,progressEnd){
+    //     if (detectedVideos.indexOf((slideIndex+1).toString()) >= 0){
+    //         fadeOut(4000);
+    //     }
+    //     else if (player.paused) {
+    //         fadeIn(3000);
+    //     }
+    // });
     jssor_1_slider.$On($JssorSlider$.$EVT_SLIDESHOW_END,function(slideIndex, progress,progressStart,idleStart,idleEnd,progressEnd){
-        if (detectedVideos.indexOf(slideIndex+1) >= 0){
+        if (detectedVideos.indexOf((slideIndex+1).toString()) >= 0){
             jssor_1_slider.$Pause();
+            console.log(document.getElementById(slideIndex+1));
             document.getElementById(slideIndex+1).firstChild.currentTime = 0;
             document.getElementById(slideIndex+1).firstChild.play();
         }
@@ -80,27 +89,27 @@ function buildSlides() {
         div.id = i;
 
         var img = document.createElement("img");
-        img.src = "img/" + i + ".jpg";
+        img.src = sourcePrefix + "slides/" + i + ".jpg";
         img.alt = img.src + " not found.";
         img.setAttribute("data-u","image");
         
 
         var video = document.createElement("video");
-        video.src= "img/" + i + ".mp4";
+        video.src= sourcePrefix + "slides/" + i + ".mp4";
         
         
         img.addEventListener('load', (function(div,img){
             div.appendChild(img);
-            slidesContainer.appendChild(div);
-            if(slidesContainer.childElementCount-1 == slidesAmount)
+            tempSlides.push(div);
+            if(tempSlides.length == slidesAmount)
                  document.dispatchEvent(slidesEvent);
         }).bind(null,div,img),false);
         
         img.addEventListener('error', function(div,video){
-            detectedVideos.push(parseInt(div.id));
+            div.className = "video";
             div.appendChild(video);
-            slidesContainer.appendChild(div);
-            if(slidesContainer.childElementCount-1 == slidesAmount)
+            tempSlides.push(div);
+            if(tempSlides.length == slidesAmount)
                 document.dispatchEvent(slidesEvent);
         }.bind(null,div,video));
     }
@@ -108,19 +117,53 @@ function buildSlides() {
 
 function arrangeSlides() {
     var temp;
-    for (var i = 1 ; i <= slidesAmount ; i++) {
-        temp = slidesContainer.removeChild(document.getElementById(i));
+
+    if(shuffleSlides)
+        tempSlides = shuffleArray(tempSlides);
+    else
+        tempSlides.sort(function(a,b){
+            if (a.id > b.id)
+                return 1;
+            else return -1;
+        });
+
+
+    tempSlides.forEach(function(element){
+        temp = element;
+        if (element.className == "video"){
+            detectedVideos.push(element.id);
+        }
         slidesContainer.appendChild(temp);
-    }
+    });
     document.dispatchEvent(arrangeEvent);
 }
+
+function shuffleArray(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[currentIndex].id = currentIndex+1;
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
 
 function addResumeListeners(){
     detectedVideos.forEach(function(i){
         document.getElementById(i).firstChild.addEventListener('ended',function(){
             jssor_1_slider.$Play();
         });
-        
     });
 }
 
@@ -141,7 +184,7 @@ function updateDimensions() {
 }
 
 function prevSong(){
-    trackNumber = shuffle ? getRNG() : (songsAmount + (--trackNumber)) % songsAmount;
+    trackNumber = shuffleSongs ? getRNG(trackNumber,songsAmount) : (songsAmount + (--trackNumber)) % songsAmount;
     if(!player.paused || player.ended)
         playTrack(trackNumber);
     else
@@ -149,7 +192,7 @@ function prevSong(){
     return trackNumber;
 }
 function nextSong(){
-    trackNumber = shuffle ? getRNG() : ++trackNumber%songsAmount;
+    trackNumber = shuffleSongs ? getRNG(trackNumber,songsAmount) : ++trackNumber%songsAmount;
     if(!player.paused || player.ended)
         playTrack(trackNumber);
     else
@@ -159,7 +202,7 @@ function nextSong(){
 }
 
 function loadTrack(i) { //load only no play
-    var src = /*"https://s3-sa-east-1.amazonaws.com/wixtestbucket/music/" +*/ "music/" + i + ".mp3";
+    var src = sourcePrefix + "music/" + (i + 1) /* this makes it 1 indexed. */ + ".mp3";
     player.src = src;
     player.load();
 }
@@ -176,7 +219,7 @@ function playTrack(i){ //load and play
 //     reduceVolume();
 //     function reduceVolume(){
 //         if( player.volume == 0 ){
-//             player.pause();  //WAS player.pause() NOW player.pause();  -_-
+//             player.pause();
 //         }
 //         else
 //         {
@@ -212,21 +255,10 @@ function playTrack(i){ //load and play
 //     }
 // }
 
-
-
-function toggleShuffle(){
-    shuffle = !shuffle;
-    return shuffle;
-}
-
-function getRNG(){
-    var num = trackNumber;
-    while (num == trackNumber && songsAmount>1){
-        num = Math.floor(Math.random()*songsAmount);
+function getRNG(i = null,max = 2){
+    var num = i;
+    while (num == i){
+        num = Math.floor(Math.random()*max);
     }
     return num;
-}
-
-function consoleLog(input){
-    debug.innerHTML += input + "<br>";
 }
