@@ -5,18 +5,18 @@ On the top part of the index.html you will find the configuration part of the sl
 
  * songs: set this to the amount of files you want to load from the "songs" folder, starting from 1. The files MUST be present.
 
-  Example: If songs folder contains 1.mp3 , 2.mp3 , 3.mp4 , 4.mp3 , 6.mp3  
-  "songs: 4" will load 1.mp3, 2.mp3, 3.mp3 and 4.mp3  
-  "songs: 5" will fail to load 5.mp3 and will not work  
+    * Example: If songs folder contains 1.mp3 , 2.mp3 , 3.mp4 , 4.mp3 , 6.mp3  
+    "songs: 4" will load 1.mp3, 2.mp3, 3.mp3 and 4.mp3  
+    "songs: 5" will fail to load 5.mp3 and will not work  
 
  * slides: the amount of files to load from the "slides" folder. similar to the songs parameter. JPG takes precedence over MP4.
 
-  Example: If "slides" folder contains 1.jpg, 2.jpg, 3.mp4, 4.jpg  
-  "slides:3" will load 1.jpg, 2.jpg, 3.mp4  
-  "slides:4" will load 1.jpg, 2.jpg, 3.mp4, 4.jpg  
+    * Example: If "slides" folder contains 1.jpg, 2.jpg, 3.mp4, 4.jpg  
+    "slides:3" will load 1.jpg, 2.jpg, 3.mp4  
+    "slides:4" will load 1.jpg, 2.jpg, 3.mp4, 4.jpg  
 
-  Example: If "slides" folder contains 1.jpg, 1.mp4, 2.jpg  
-  "slides:2" will load 1.jpg, 2.jpg It will ignore 1.mp4  
+    * Example: If "slides" folder contains 1.jpg, 1.mp4, 2.jpg  
+    "slides:2" will load 1.jpg, 2.jpg It will ignore 1.mp4  
 
  * shuffleSongs: true or false to shuffle the background music.
 
