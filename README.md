@@ -1,4 +1,4 @@
-Instructions for using the slideshow:
+# Instructions for using the slideshow:
 
 * The slideshow uses two folders: slides, and songs. This folder can be hosted on the service of your preference, it's currently using Amazon S3.  
 On the top part of the index.html you will find the configuration part of the slideshow. These are:
@@ -26,11 +26,11 @@ On the top part of the index.html you will find the configuration part of the sl
 
  * source: If you are storing your slides on "http://great.hosting.com/1234/slides", then set source to "http://great.hosting.com/1234/". If using s3 make sure to select your files and click more->make public.
 
-It's IMPORTANT to not have duplicate files, and have them in the correct order/format. Meaning no .jpeg, or .png files.
+**It's IMPORTANT to not have duplicate files, and have them in the correct order/format. Meaning no .jpeg, or .png files.**
 
 
 
-So basic flow of using the slider:
+# Basic flow to using the slider:
 
 1. Copy the index.html file. And place it on the hosting of your selection. All the javascript is inside this file so it's the only file you need.
 2. Upload/arrange the files from songs folder and slides folder.
