@@ -1,0 +1,31 @@
+{
+  "name": "sanchez2210",
+  "version": "1.0.0",
+  "description": "* The slideshow uses two folders: slides, and songs. This folder can be hosted on the service of your preference, it's currently using Amazon S3.   On the top part of the index.html you will find the configuration part of the slideshow. These are:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanchez2210/sanchez2210.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sanchez2210/sanchez2210/issues"
+  },
+  "homepage": "https://github.com/sanchez2210/sanchez2210#readme",
+  "devDependencies": {
+    "css-loader": "^4.2.1",
+    "postcss-loader": "^3.0.0",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "lodash": "^4.17.19",
+    "tailwindcss": "^1.6.2"
+  }
+}
