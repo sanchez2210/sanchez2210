@@ -12,11 +12,7 @@ module.exports = {
         test: /\.css$/,
         use: [
           'style-loader',
-          'css-loader'
-        ]
-      }
-      {
-        use: [
+          'css-loader',
           {
             loader: 'postcss-loader',
             options: {
