@@ -1,5 +1,150 @@
-@tailwind base;
 
-@tailwind components;
+html{
+  scroll-behavior: smooth;
+}
 
-@tailwind utilities;
+h2, h3{
+  font-weight: 400;
+}
+
+nav{
+  padding: 1rem !important;
+}
+
+#portrait {
+  border-radius: 50%;
+
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+
+  border: 1px solid rgba(0,0,0,0.1);
+
+}
+
+#hero-1, nav{
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+}
+
+/* Horizontal Card */
+.h-card {
+  border-radius: 0px;
+  border: 1px solid rgba(0,0,0,0.3);
+
+  transition: border .25s;
+
+  margin-bottom: 2rem;
+
+}
+
+.h-card:hover{
+  border: 1px solid rgba(0,0,0,0.5);
+}
+
+.h-card img{
+  border-radius: 0px;
+}
+
+/* Contact card */
+.c-card {
+  border-radius: 0px;
+  border: 1px solid rgba(0,0,0,0.4);
+
+  transition: border .25s;
+  transition: background-color .25s;
+
+  margin-bottom: 1rem;
+
+}
+
+.c-card i{
+  font-size: 2rem !important;
+}
+
+.c-card .row > div:first-child{
+  border-right: 1px solid rgba(0,0,0,0.4);
+}
+
+.c-card:hover{
+  background-color: #ddd;
+}
+
+.c-card a{
+  text-decoration: none;
+}
+
+footer {
+  margin-top: 5rem;
+  padding: 4rem 0;
+  background-color: #f3f3f3;
+}
+
+footer .row{
+  width: 40%;
+  margin: 0 auto;
+}
+
+/* Mobile Devices */
+@media only screen and (max-width: 768px) {
+  #portrait{
+    max-width: 80%;
+  }
+
+  .h-card {
+    width: 100%;
+
+    padding: 1.5rem .5rem !important;
+
+  }
+
+  .h-card img{
+    display: block;
+    margin: 0 auto;
+  }
+
+  .c-card {
+    width: 70%;
+  }
+
+  footer .row{
+    width: 40%;
+    margin: 0 auto;
+
+  }
+}
+
+
+/* Tablet Screens */
+@media only screen and (min-width: 769px) {
+  #portrait{
+    max-width: 30%;
+  }
+
+  .h-card {
+    width: 85%;
+  }
+
+  .h-card img{
+    display: block;
+    margin: 0 auto;
+  }
+
+  .c-card {
+    width: 50%;
+  }
+}
+
+/* Deskopt Screens */
+@media only screen and (min-width: 1024px) {
+  #portrait{
+    max-width: 30%;
+  }
+
+  .h-card {
+    width: 85%;
+  }
+
+  .c-card {
+    width: 25%;
+  }
+}
