@@ -102,10 +102,6 @@ footer .row{
     margin: 0 auto;
   }
 
-  .c-card {
-    width: 70%;
-  }
-
   footer .row{
     width: 40%;
     margin: 0 auto;
@@ -128,10 +124,6 @@ footer .row{
     display: block;
     margin: 0 auto;
   }
-
-  .c-card {
-    width: 50%;
-  }
 }
 
 /* Deskopt Screens */
@@ -142,9 +134,5 @@ footer .row{
 
   .h-card {
     width: 85%;
-  }
-
-  .c-card {
-    width: 25%;
   }
 }
